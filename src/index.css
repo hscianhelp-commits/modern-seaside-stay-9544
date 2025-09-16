@@ -34,6 +34,36 @@
     --ring: 265 45% 46%;
 
     --radius: 0.5rem;
+
+    /* Enhanced design tokens for Youth Hope */
+    --gradient-primary: linear-gradient(135deg, hsl(265 45% 46%), hsl(264 69% 75%));
+    --gradient-secondary: linear-gradient(135deg, hsl(122 59% 49%), hsl(122 39% 69%));
+    --gradient-hero: linear-gradient(rgba(106, 65, 168, 0.9), rgba(76, 175, 80, 0.8));
+    --shadow-elegant: 0 10px 30px -10px hsl(265 45% 46% / 0.3);
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 264 69% 75%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 122 39% 69%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 264 69% 75%;
   }
 
   * {
@@ -52,33 +82,122 @@
 
 @layer components {
   .hero-section {
-    @apply relative min-h-[600px] flex items-center justify-center overflow-hidden;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&q=80');
-    background-size: cover;
-    background-position: center;
+    @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+    background: var(--gradient-hero);
   }
 
   .hero-content {
-    @apply z-10 text-center px-4 sm:px-6 lg:px-8 text-white max-w-5xl mx-auto;
+    @apply z-10 text-center px-4 sm:px-6 lg:px-8 text-white max-w-6xl mx-auto;
   }
 
   .section-container {
-    @apply py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto;
+    @apply py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto;
   }
   
   .card-hover {
-    @apply transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg;
+    transition: var(--transition-smooth);
+    @apply hover:-translate-y-3 hover:shadow-2xl;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-elegant);
   }
 
   .gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-youth-purple to-youth-light-purple;
+    @apply text-transparent bg-clip-text;
+    background: var(--gradient-primary);
+  }
+
+  .gradient-bg {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-bg-secondary {
+    background: var(--gradient-secondary);
   }
 
   .button-primary {
-    @apply inline-flex items-center justify-center rounded-md bg-youth-purple px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-youth-purple/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-youth-purple disabled:pointer-events-none disabled:opacity-50;
+    @apply inline-flex items-center justify-center rounded-lg px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-elegant);
   }
   
   .button-secondary {
-    @apply inline-flex items-center justify-center rounded-md bg-youth-green px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-youth-green/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-youth-green disabled:pointer-events-none disabled:opacity-50;
+    @apply inline-flex items-center justify-center rounded-lg border-2 border-white/20 bg-white/10 px-6 py-3 text-base font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .stats-card {
+    @apply rounded-2xl bg-white/10 backdrop-blur-sm p-8 text-center transition-all duration-300 hover:bg-white/20 hover:scale-105;
+    box-shadow: var(--shadow-card);
+  }
+
+  .service-card {
+    @apply group relative overflow-hidden rounded-2xl bg-white p-8 transition-all duration-500 hover:shadow-2xl;
+    box-shadow: var(--shadow-card);
+  }
+
+  .service-card::before {
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-5;
+    content: '';
+    background: var(--gradient-primary);
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-bounce-gentle {
+    animation: bounceGentle 2s ease-in-out infinite;
+  }
+
+  .floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounceGentle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes floating {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .scroll-indicator {
+    @apply absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 animate-bounce;
+  }
+
+  .hero-slide {
+    opacity: 0;
+    animation: heroSlideshow 20s infinite;
+  }
+
+  @keyframes heroSlideshow {
+    0% { opacity: 0; }
+    8% { opacity: 1; }
+    25% { opacity: 1; }
+    33% { opacity: 0; }
+    100% { opacity: 0; }
   }
 }
